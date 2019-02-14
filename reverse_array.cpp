@@ -8,7 +8,10 @@ void Fill_Array(int [], int);
 
 int main()
 {
-  int size = 10;
+  int size;
+  cout << "Please enter a size for the array: ";
+  cin >> size;
+  cout << "The size of the array is " << size << ".\n";
   int myArray[size];
 
   Fill_Array(myArray, size);

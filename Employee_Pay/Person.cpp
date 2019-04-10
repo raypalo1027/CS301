@@ -2,6 +2,14 @@
 
 Person::Person(){}
 
+Person::Person(string fName, string lName, float pay, float numOfHours)
+{
+  firstName = fName;
+  lastName = lName;
+  payRate = pay;
+  hoursWorked = numOfHours;
+}
+
 void Person::setLastName(string lName)
 {
   lastName = lName;

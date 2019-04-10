@@ -2,19 +2,22 @@
 #include <string>
 #include <fstream>
 #include <iostream>
+#include <vector>
 
-void readData(Person [], int &);
-void writeData(Person [], int);
+void readData(vector<Person> &);
+void writeData(vector<Person>);
 
 using namespace std;
 
 int main()
 {
-  Person personArray[20];
-  int numOfRecords = 0;
+  vector<Person> peopleVector;
 
-  readData(personArray, numOfRecords);
-  writeData(personArray, numOfRecords);
+  readData(peopleVector);
+  cout << peopleVector.at(0).getFirstName() << endl;
+  cout << peopleVector.at(1).getFirstName() << endl;
+  cout << peopleVector.at(2).getFirstName() << endl;
+  writeData(peopleVector);
   return 0;
 }
 
@@ -22,7 +25,7 @@ int main()
 reads from the file input.txt and creates
 an array of type Person
 */
-void readData(Person array[], int &count)
+void readData(vector<Person> &people)
 {
   string fName, lName;
   float pay, numOfHours;
@@ -32,12 +35,8 @@ void readData(Person array[], int &count)
   while(!inData.eof())
   {
     inData >> lName >> numOfHours >> pay;
-    array[count].setFirstName(fName);
-    array[count].setLastName(lName);
-    array[count].setHoursWorked(numOfHours);
-    array[count].setPayRate(pay);
+    people.emplace_back(fName, lName, pay, numOfHours);
     inData >> fName;
-    count++;
   }
 
   inData.close();
@@ -47,13 +46,13 @@ void readData(Person array[], int &count)
 writes to the file output.txt in the format
 Full Name Total Pay(Hours Worked * Pay Rate)
 */
-void writeData(Person array[], int count)
+void writeData(vector<Person> people)
 {
   ofstream outData("output.txt");
 
-  for(int i = 0; i < count; i++)
+  for(int i = 0; i < people.size(); i++)
   {
-    outData << array[i].fullName() << " $" << array[i].totalPay() << "\n";
+    outData << people.at(i).fullName() << " " << people.at(i).totalPay() << endl;
   }
 
   outData.close();
